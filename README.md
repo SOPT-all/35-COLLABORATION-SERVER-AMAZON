@@ -1,0 +1,2 @@
+# 35-COLLABORATION-SERVER-AMAZON
+[35th AND SOPT] 합동세미나 데스크탑 웹 1팀(아마존) SERVER
