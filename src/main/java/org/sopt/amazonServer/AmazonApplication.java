@@ -9,4 +9,3 @@ public class AmazonApplication {
         SpringApplication.run(AmazonApplication.class, args);
     }
 }
-// springboot의
