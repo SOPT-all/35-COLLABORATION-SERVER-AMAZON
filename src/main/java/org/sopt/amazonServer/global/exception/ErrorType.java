@@ -13,7 +13,7 @@ public enum ErrorType {
     DATA_INTEGRITY_VIOLATION_ERROR(HttpStatus.BAD_REQUEST, "40007", "데이터 무결성 제약 조건을 위반했습니다."),
 
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "50001", "예상치 못한 서버 에러가 발생했습니다."),
-
+    INVALID_PRODUCTS_SORT_BY_ERROR(HttpStatus.BAD_REQUEST, "40008", "잘못된 검색 결과 정렬 기준입니다.")
     ;
 
     private final HttpStatus httpStatus;
