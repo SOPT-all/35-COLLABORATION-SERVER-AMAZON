@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "product")
 public class ProductEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -87,7 +88,6 @@ public class ProductEntity {
         this.sales = sales;
         this.launchDate = launchDate;
     }
-
 
     public final Long getId() {
         return id;

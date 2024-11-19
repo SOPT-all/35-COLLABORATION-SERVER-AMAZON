@@ -14,6 +14,6 @@ public record GetProductResponse(
         String deliveryDate,
         int freeDeliveryStandard,
         boolean isInCart
-
 ) {
+
 }

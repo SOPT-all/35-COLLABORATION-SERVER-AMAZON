@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductService {
+
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final MemberRepository memberRepository;
@@ -61,7 +62,6 @@ public class ProductService {
                 ))
                 .toList();
     }
-
 
     private void sortProducts(List<ProductEntity> productList, Sort sort) {
         Map<Sort, Comparator<ProductEntity>> comparatorMap = new HashMap<>();
