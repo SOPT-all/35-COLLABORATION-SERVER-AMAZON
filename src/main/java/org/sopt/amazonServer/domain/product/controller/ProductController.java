@@ -24,9 +24,9 @@ public class ProductController {
 
     @GetMapping
     ResponseEntity<ResponseDto<List<GetProductResponse>>> getDiaryList(
-            @RequestParam(value = "keyword", required = false) String keyword,
-            @RequestParam(value = "sort", defaultValue = "POPULARITY") String sort,
-            @RequestHeader("memberId") Long memberId
+            @RequestParam(value = "keyword", required = false) final String keyword,
+            @RequestParam(value = "sort", defaultValue = "POPULARITY") final String sort,
+            @RequestHeader("memberId") final Long memberId
     ) {
         Sort sortBy = Sort.fromValue(sort.toUpperCase()); // 잘못된 정렬 값인지 확인
 
