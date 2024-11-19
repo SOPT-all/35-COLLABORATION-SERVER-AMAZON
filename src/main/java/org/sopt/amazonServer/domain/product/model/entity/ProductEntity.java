@@ -35,7 +35,7 @@ public class ProductEntity {
     @Column(name = "price", nullable = false)
     private int price;
 
-    @Column(name = "discount_rate")
+    @Column(name = "discount_rate",nullable = false)
     private Integer discountRate;
 
     @Column(name = "is_free_delivery", nullable = false)
@@ -45,7 +45,7 @@ public class ProductEntity {
     @Column(name = "delivery_date", nullable = false, updatable = false)
     private Timestamp deliveryDate;
 
-    @Column(name = "free_delivery_standard")
+    @Column(name = "free_delivery_standard",nullable = false)
     private Integer freeDeliveryStandard;
 
     @Column(name = "sales", nullable = false)
