@@ -1,14 +1,17 @@
 package org.sopt.amazonServer.domain.product.controller;
 
 
-import org.sopt.amazonServer.domain.product.model.dto.GetProductRequest;
+import java.util.List;
+import org.sopt.amazonServer.domain.product.model.dto.GetProductResponse;
 import org.sopt.amazonServer.domain.product.model.enums.Sort;
 import org.sopt.amazonServer.domain.product.service.ProductService;
-
+import org.sopt.amazonServer.global.dto.ResponseDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
@@ -20,16 +23,12 @@ public class ProductController {
     }
 
     @GetMapping
-    ResponseEntity<List<GetProductRequest>> getDiaryList(
-            @RequestParam(required = false) String keyword,
-            @RequestParam(defaultValue = "POPULARITY") String sort,
+    ResponseEntity<ResponseDto<List<GetProductResponse>>> getDiaryList(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "sort", defaultValue = "POPULARITY") String sort,
             @RequestHeader("memberId") Long memberId
     ) {
-        // TODO: 코드 스타일 정리하기
-       Sort sortBy = Sort.fromValue(sort);
-
-        return ResponseEntity.ok(productService.fetchProducts(keyword,sortBy,memberId));
+        Sort sortBy = Sort.fromValue(sort.toUpperCase()); // 잘못된 정렬 값인지 확인
+        return ResponseEntity.ok(ResponseDto.success(productService.fetchProducts(keyword, sortBy, memberId)));
     }
-
-
 }
