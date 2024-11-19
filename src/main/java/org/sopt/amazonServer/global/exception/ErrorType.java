@@ -3,7 +3,6 @@ package org.sopt.amazonServer.global.exception;
 import org.springframework.http.HttpStatus;
 
 public enum ErrorType {
-
     INVALID_PATH_ERROR(HttpStatus.BAD_REQUEST, "40001", "요청 경로의 변수 값이 허용된 형식과 다릅니다."),
     INVALID_FIELD_ERROR(HttpStatus.BAD_REQUEST, "40002", "요청 본문의 필드 값이 허용된 형식과 다릅니다."),
     NO_REQUEST_PARAMETER_ERROR(HttpStatus.BAD_REQUEST, "40003", "요청에 필요한 파라미터가 존재하지 않습니다."),
@@ -13,8 +12,8 @@ public enum ErrorType {
     DATA_INTEGRITY_VIOLATION_ERROR(HttpStatus.BAD_REQUEST, "40007", "데이터 무결성 제약 조건을 위반했습니다."),
 
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "50001", "예상치 못한 서버 에러가 발생했습니다."),
-    INVALID_PRODUCTS_SORT_BY_ERROR(HttpStatus.BAD_REQUEST, "40008", "잘못된 검색 결과 정렬 기준입니다.")
-    ;
+    INVALID_PRODUCTS_SORT_BY_ERROR(HttpStatus.BAD_REQUEST, "40008", "잘못된 검색 결과 정렬 기준입니다."),
+    NOT_FOUND_MEMBER(HttpStatus.BAD_REQUEST, "40401", "존재하지 않는 회원입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
