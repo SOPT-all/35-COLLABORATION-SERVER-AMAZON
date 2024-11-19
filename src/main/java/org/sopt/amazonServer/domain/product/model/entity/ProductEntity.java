@@ -1,14 +1,16 @@
 package org.sopt.amazonServer.domain.product.model.entity;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "product")
 public class ProductEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -35,17 +37,16 @@ public class ProductEntity {
     @Column(name = "price", nullable = false)
     private int price;
 
-    @Column(name = "discount_rate",nullable = false)
+    @Column(name = "discount_rate", nullable = false)
     private Integer discountRate;
 
     @Column(name = "is_free_delivery", nullable = false)
     private boolean isFreeDelivery;
 
-    @CreationTimestamp
-    @Column(name = "delivery_date", nullable = false, updatable = false)
+    @Column(name = "delivery_date", nullable = false)
     private Timestamp deliveryDate;
 
-    @Column(name = "free_delivery_standard",nullable = false)
+    @Column(name = "free_delivery_standard", nullable = false)
     private Integer freeDeliveryStandard;
 
     @Column(name = "sales", nullable = false)
@@ -143,6 +144,4 @@ public class ProductEntity {
     public final Timestamp getLaunchDate() {
         return launchDate;
     }
-
-
 }
