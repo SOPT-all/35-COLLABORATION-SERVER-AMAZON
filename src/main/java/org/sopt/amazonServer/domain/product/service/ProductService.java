@@ -1,5 +1,6 @@
 package org.sopt.amazonServer.domain.product.service;
 
+import org.sopt.amazonServer.domain.cart.repostiory.CartRepository;
 import org.sopt.amazonServer.domain.product.model.dto.GetProductRequest;
 import org.sopt.amazonServer.domain.product.model.entity.ProductEntity;
 import org.sopt.amazonServer.domain.product.model.enums.Sort;
@@ -15,19 +16,19 @@ import java.util.Map;
 @Component
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CartRepository cartRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository,CartRepository cartRepository) {
         this.productRepository = productRepository;
+        this.cartRepository = cartRepository;
     }
 
     public List<GetProductRequest> fetchProducts(String keyword, Sort sort, Long memberId) {
-        // 1. 상품 데이터를 keyword를 기반으로 가져온다. ( keyword로 필터링하는건 repository에서 )
-        // 2. 상품 데이터를 sort 기반으로 정렬한다.
-        // 3. memberId를 가지고 온 다음에 해당 상품이 장바구니에 있는지 여부를 같이 넣어줌
         List<ProductEntity> productList = productRepository.findByNameContaining(keyword);
         sortProducts(productList,sort);
        return productList.stream()
-                .map(product -> new GetProductRequest(
+                .map(product -> {
+                    return new GetProductRequest(
                         product.getId(),
                         product.getImage(),
                         product.getBrand(),
@@ -36,14 +37,14 @@ public class ProductService {
                         product.getRating(),
                         product.getReviewCount(),
                         product.getPrice(),
-                        product.getDiscountRate() != null ? product.getDiscountRate() : 0,
+                        product.getDiscountRate(),
                         product.isFreeDelivery(),
                         product.getDeliveryDate().toLocalDateTime()
                         .toLocalDate()
                         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                        product.getFreeDeliveryStandard() != null ? product.getFreeDeliveryStandard() : 0,
-                        false // 장바구니 여부
-                ))
+                        product.getFreeDeliveryStandard(),
+                            cartRepository.existsByMemberIdAndProductId(memberId,product.getId()) // 장바구니 여부
+                );})
                 .toList();
     }
 
