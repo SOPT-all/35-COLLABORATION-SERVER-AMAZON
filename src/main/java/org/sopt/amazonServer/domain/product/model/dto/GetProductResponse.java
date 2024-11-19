@@ -1,6 +1,6 @@
 package org.sopt.amazonServer.domain.product.model.dto;
 
-public record GetProductRequest(
+public record GetProductResponse(
         Long id,
         String image,
         String brand,
@@ -16,6 +16,4 @@ public record GetProductRequest(
         boolean isInCart
 
 ) {
-
-
 }
