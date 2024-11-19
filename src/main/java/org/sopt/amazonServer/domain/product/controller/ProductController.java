@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/v1/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -29,7 +29,7 @@ public class ProductController {
             @RequestHeader("memberId") Long memberId
     ) {
         Sort sortBy = Sort.fromValue(sort.toUpperCase()); // 잘못된 정렬 값인지 확인
-        
+
         return ResponseEntity.ok(ResponseDto.success(productService.fetchProducts(keyword, sortBy, memberId)));
     }
 }
