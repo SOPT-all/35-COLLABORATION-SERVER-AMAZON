@@ -4,7 +4,6 @@ import java.util.List;
 import org.sopt.amazonServer.domain.product.model.dto.GetProductResponse;
 import org.sopt.amazonServer.domain.product.model.enums.Sort;
 import org.sopt.amazonServer.domain.product.service.ProductService;
-import org.sopt.amazonServer.global.dto.ResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -23,13 +22,13 @@ public class ProductController {
     }
 
     @GetMapping
-    ResponseEntity<ResponseDto<List<GetProductResponse>>> getDiaryList(
+    ResponseEntity<List<GetProductResponse>> getDiaryList(
             @RequestParam(value = "keyword", required = false) final String keyword,
             @RequestParam(value = "sort", defaultValue = "POPULARITY") final String sort,
             @RequestHeader("memberId") final Long memberId
     ) {
         Sort sortBy = Sort.fromValue(sort.toUpperCase()); // 잘못된 정렬 값인지 확인
 
-        return ResponseEntity.ok(ResponseDto.success(productService.fetchProducts(keyword, sortBy, memberId)));
+        return ResponseEntity.ok(productService.fetchProducts(keyword, sortBy, memberId));
     }
 }
