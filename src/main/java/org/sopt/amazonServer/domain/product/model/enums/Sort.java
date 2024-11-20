@@ -12,11 +12,11 @@ public enum Sort {
     LOW_PRICE("LOWPRICE"),
     LATEST_PRODUCTS("LATESTPRODUCTS");
 
-    private static final Map<String, Sort> SORT_BY_MAP = new HashMap<>();
+    private static final Map<String, Sort> sortMap = new HashMap<>();
 
     static {
         for (Sort sort : Sort.values()) {
-            SORT_BY_MAP.put(sort.getValue(), sort);
+            sortMap.put(sort.getValue(), sort);
         }
     }
 
@@ -27,11 +27,11 @@ public enum Sort {
     }
 
     public static Sort fromValue(String value) {
-        Sort sort_by = SORT_BY_MAP.get(value);
-        if (sort_by == null) {
+        Sort sort = sortMap.get(value);
+        if (sort == null) {
             throw new BusinessException(ErrorType.INVALID_PRODUCTS_SORT_BY_ERROR);
         }
-        return sort_by;
+        return sort;
     }
 
     public String getValue() {

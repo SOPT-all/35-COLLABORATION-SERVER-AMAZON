@@ -93,7 +93,7 @@ public class ProductEntity {
         return id;
     }
 
-    public final boolean isBestSeller() {
+    public final boolean getIsBestSeller() {
         return isBestSeller;
     }
 
@@ -125,7 +125,7 @@ public class ProductEntity {
         return discountRate;
     }
 
-    public final boolean isFreeDelivery() {
+    public final boolean getIsFreeDelivery() {
         return isFreeDelivery;
     }
 

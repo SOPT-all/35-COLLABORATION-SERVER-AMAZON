@@ -29,7 +29,7 @@ public class ProductService {
         this.memberRepository = memberRepository;
     }
 
-    public List<GetProductResponse> fetchProducts(String keyword, Sort sort, Long memberId) {
+    public final List<GetProductResponse> fetchProducts(String keyword, Sort sort, Long memberId) {
         if (!memberRepository.existsById(memberId)) {
             throw new BusinessException(ErrorType.NOT_FOUND_MEMBER);
         }
@@ -48,12 +48,12 @@ public class ProductService {
                         product.getImage(),
                         product.getBrand(),
                         product.getName(),
-                        product.isBestSeller(),
+                        product.getIsBestSeller(),
                         product.getRating(),
                         product.getReviewCount(),
                         product.getPrice(),
                         product.getDiscountRate(),
-                        product.isFreeDelivery(),
+                        product.getIsFreeDelivery(),
                         product.getDeliveryDate().toLocalDateTime()
                                 .toLocalDate()
                                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), // TODO: DateFormatter 분리
