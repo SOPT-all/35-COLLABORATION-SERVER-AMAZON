@@ -13,7 +13,10 @@ public enum ErrorType {
 
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "50001", "예상치 못한 서버 에러가 발생했습니다."),
     INVALID_PRODUCTS_SORT_BY_ERROR(HttpStatus.BAD_REQUEST, "40008", "잘못된 검색 결과 정렬 기준입니다."),
-    NOT_FOUND_MEMBER(HttpStatus.BAD_REQUEST, "40401", "존재하지 않는 회원입니다.");
+    NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "40401", "존재하지 않는 회원입니다."),
+    NOT_FOUND_PRODUCT_ERROR(HttpStatus.NOT_FOUND, "40402", "존재하지 않는 상품입니다."),
+
+    PRODUCT_NOT_IN_CART_ERROR(HttpStatus.BAD_REQUEST, "40009", "장바구니에 존재하지 않는 상품입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
