@@ -1,6 +1,5 @@
 package org.sopt.amazonServer.domain.product.service;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -57,9 +56,7 @@ public class ProductService {
                         product.getPrice(),
                         product.getDiscountRate(),
                         product.getIsFreeDelivery(),
-                        product.getDeliveryDate().toLocalDateTime()
-                                .toLocalDate()
-                                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), // TODO: DateFormatter 분리
+                        product.getDeliveryDate().toString(), // TODO: DateFormatter 분리
                         product.getFreeDeliveryStandard(),
                         cartList.stream().anyMatch(cart -> cart.getProductId().equals(product.getId()))
                 ))

@@ -6,7 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "product")
@@ -45,7 +45,7 @@ public class ProductEntity {
     private boolean isFreeDelivery;
 
     @Column(name = "delivery_date", nullable = false)
-    private Timestamp deliveryDate;
+    private LocalDateTime deliveryDate;
 
     @Column(name = "free_delivery_standard", nullable = false)
     private int freeDeliveryStandard;
@@ -54,7 +54,7 @@ public class ProductEntity {
     private int sales;
 
     @Column(name = "launch_date", nullable = false)
-    private Timestamp launchDate;
+    private LocalDateTime launchDate;
 
     protected ProductEntity() {
     }
@@ -69,10 +69,10 @@ public class ProductEntity {
             int price,
             Integer discountRate,
             boolean isFreeDelivery,
-            Timestamp deliveryDate,
+            LocalDateTime deliveryDate,
             Integer freeDeliveryStandard,
             int sales,
-            Timestamp launchDate
+            LocalDateTime launchDate
     ) {
         this.isBestSeller = isBestSeller;
         this.image = image;
@@ -129,7 +129,7 @@ public class ProductEntity {
         return isFreeDelivery;
     }
 
-    public final Timestamp getDeliveryDate() {
+    public final LocalDateTime getDeliveryDate() {
         return deliveryDate;
     }
 
@@ -141,7 +141,7 @@ public class ProductEntity {
         return sales;
     }
 
-    public final Timestamp getLaunchDate() {
+    public final LocalDateTime getLaunchDate() {
         return launchDate;
     }
 }
