@@ -37,7 +37,7 @@ public class ProductService {
         if (keyword == null) { // 키워드가 없을 땐 전체 데이터 조회
             productList = productRepository.findAll();
         } else {
-            productList = productRepository.findByNameContaining(keyword);
+            productList = productRepository.findByNameContainsIgnoreCase(keyword);
         }
         // 상품 정렬
         sortProducts(productList, sort);
