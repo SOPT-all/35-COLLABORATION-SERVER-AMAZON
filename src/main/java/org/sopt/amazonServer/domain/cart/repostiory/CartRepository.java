@@ -10,4 +10,7 @@ public interface CartRepository extends JpaRepository<CartEntity, Long> {
 
     List<CartEntity> findAllByMemberId(Long memberId);
 
+    void deleteByMemberIdAndProductId(Long memberId, Long productId);
+
+    Boolean existsByMemberIdAndProductId(Long memberId, Long productId);
 }
