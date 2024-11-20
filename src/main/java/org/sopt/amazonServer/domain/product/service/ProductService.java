@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.sopt.amazonServer.domain.cart.model.entity.CartEntity;
 import org.sopt.amazonServer.domain.cart.repostiory.CartRepository;
 import org.sopt.amazonServer.domain.member.repository.MemberRepository;
 import org.sopt.amazonServer.domain.product.model.dto.GetProductResponse;
@@ -21,6 +22,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final MemberRepository memberRepository;
+    private final Map<Sort, Comparator<ProductEntity>> comparatorMap = new HashMap<>();
 
     public ProductService(ProductRepository productRepository, CartRepository cartRepository,
                           MemberRepository memberRepository) {
@@ -41,6 +43,7 @@ public class ProductService {
         }
         // 상품 정렬
         sortProducts(productList, sort);
+        List<CartEntity> cartList = cartRepository.findAllByMemberId(memberId);
 
         return productList.stream()
                 .map(product -> new GetProductResponse(
@@ -58,14 +61,12 @@ public class ProductService {
                                 .toLocalDate()
                                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), // TODO: DateFormatter 분리
                         product.getFreeDeliveryStandard(),
-                        cartRepository.existsByMemberIdAndProductId(memberId, product.getId())
+                        cartList.stream().anyMatch(cart -> cart.getProductId().equals(product.getId()))
                 ))
                 .toList();
     }
 
     private void sortProducts(List<ProductEntity> productList, Sort sort) {
-        Map<Sort, Comparator<ProductEntity>> comparatorMap = new HashMap<>();
-
         comparatorMap.put(Sort.REVIEW_COUNT, Comparator.comparing(ProductEntity::getReviewCount).reversed());
         comparatorMap.put(Sort.LOW_PRICE, Comparator.comparing(ProductEntity::getPrice));
         comparatorMap.put(Sort.LATEST_PRODUCTS, Comparator.comparing(ProductEntity::getLaunchDate).reversed());
