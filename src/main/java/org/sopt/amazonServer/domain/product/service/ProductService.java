@@ -14,6 +14,7 @@ import org.sopt.amazonServer.domain.product.repository.ProductRepository;
 import org.sopt.amazonServer.global.exception.BusinessException;
 import org.sopt.amazonServer.global.exception.ErrorType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductService {
@@ -30,7 +31,8 @@ public class ProductService {
         this.memberRepository = memberRepository;
     }
 
-    public final List<GetProductResponse> fetchProducts(String keyword, Sort sort, Long memberId) {
+    @Transactional(readOnly = true)
+    public List<GetProductResponse> fetchProducts(final String keyword, final Sort sort, final Long memberId) {
         if (!memberRepository.existsById(memberId)) {
             throw new BusinessException(ErrorType.NOT_FOUND_MEMBER);
         }
