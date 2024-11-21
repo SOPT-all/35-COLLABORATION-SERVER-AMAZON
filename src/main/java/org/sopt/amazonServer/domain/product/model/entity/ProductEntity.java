@@ -59,36 +59,6 @@ public class ProductEntity {
     protected ProductEntity() {
     }
 
-    public ProductEntity(
-            boolean isBestSeller,
-            String image,
-            String brand,
-            String name,
-            float rating,
-            int reviewCount,
-            int price,
-            Integer discountRate,
-            boolean isFreeDelivery,
-            LocalDateTime deliveryDate,
-            Integer freeDeliveryStandard,
-            int sales,
-            LocalDateTime launchDate
-    ) {
-        this.isBestSeller = isBestSeller;
-        this.image = image;
-        this.brand = brand;
-        this.name = name;
-        this.rating = rating;
-        this.reviewCount = reviewCount;
-        this.price = price;
-        this.discountRate = discountRate;
-        this.isFreeDelivery = isFreeDelivery;
-        this.deliveryDate = deliveryDate;
-        this.freeDeliveryStandard = freeDeliveryStandard;
-        this.sales = sales;
-        this.launchDate = launchDate;
-    }
-
     public final Long getId() {
         return id;
     }
