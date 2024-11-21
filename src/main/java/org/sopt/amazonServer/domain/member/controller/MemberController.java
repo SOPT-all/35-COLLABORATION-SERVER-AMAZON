@@ -21,7 +21,7 @@ public class MemberController {
 
     @GetMapping("/search-history")
     public ResponseEntity<List<SearchHistoryResponse>> getSearchHistoryList(
-            @RequestHeader final Long memberId
+            @RequestHeader(name = "memberId") final Long memberId
     ) {
         return ResponseEntity.ok(memberService.fetchSearchHistoryList(memberId));
     }
