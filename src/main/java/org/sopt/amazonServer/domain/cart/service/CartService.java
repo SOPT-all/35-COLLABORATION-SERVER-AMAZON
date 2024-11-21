@@ -22,7 +22,7 @@ public class CartService {
     }
 
     @Transactional
-    public CartResponse removeProduct(Long productId, Long memberId) {
+    public CartResponse removeProductInCart(Long productId, Long memberId) {
         if (!productRepository.existsById(productId)) {
             throw new BusinessException(ErrorType.NOT_FOUND_PRODUCT_ERROR);
         }
@@ -33,6 +33,20 @@ public class CartService {
         List<CartEntity> cartList = cartRepository.findAllByMemberId(memberId);
 
         return new CartResponse(cartList.size());
+    }
 
+    @Transactional
+    public CartResponse createProductInCart(Long productId, Long memberId) {
+        // TODO: 중복 제거
+        if (!productRepository.existsById(productId)) {
+            throw new BusinessException(ErrorType.NOT_FOUND_PRODUCT_ERROR);
+        }
+        if (cartRepository.existsByMemberIdAndProductId(memberId, productId)) {
+            throw new BusinessException(ErrorType.PRODUCT_IN_CART_ERROR);
+        }
+        cartRepository.save(new CartEntity(memberId, productId));
+        List<CartEntity> cartList = cartRepository.findAllByMemberId(memberId);
+
+        return new CartResponse(cartList.size());
     }
 }
