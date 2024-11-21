@@ -34,7 +34,7 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<GetProductResponse> fetchProducts(final String keyword, final Sort sort, final Long memberId) {
         if (!memberRepository.existsById(memberId)) {
-            throw new BusinessException(ErrorType.NOT_FOUND_MEMBER);
+            throw new BusinessException(ErrorType.NOT_FOUND_MEMBER_ERROR);
         }
         List<ProductEntity> productList;
         if (keyword == null) { // 키워드가 없을 땐 전체 데이터 조회
