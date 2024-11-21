@@ -18,10 +18,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductService {
 
+    private final static Map<Sort, Comparator<ProductEntity>> comparatorMap = new HashMap<>();
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final MemberRepository memberRepository;
-    private final Map<Sort, Comparator<ProductEntity>> comparatorMap = new HashMap<>();
 
     public ProductService(ProductRepository productRepository, CartRepository cartRepository,
                           MemberRepository memberRepository) {
