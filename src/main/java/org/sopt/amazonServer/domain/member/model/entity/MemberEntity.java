@@ -9,14 +9,14 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "member")
-public class Member {
+public class MemberEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    protected Member() {
+    protected MemberEntity() {
     }
 
     public Long getId() {

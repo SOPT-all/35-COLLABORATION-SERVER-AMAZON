@@ -16,7 +16,7 @@ import org.sopt.amazonServer.global.entity.BaseTimeEntity;
                 @Index(name = "idx_search_history_member_id", columnList = "member_id")
         }
 )
-public class SearchHistory extends BaseTimeEntity {
+public class SearchHistoryEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class SearchHistory extends BaseTimeEntity {
     @Column(name = "keyword", nullable = false)
     private String keyword;
 
-    protected SearchHistory() {
+    protected SearchHistoryEntity() {
     }
 
     public Long getId() {
