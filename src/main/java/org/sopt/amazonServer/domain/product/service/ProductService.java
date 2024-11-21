@@ -13,9 +13,9 @@ import org.sopt.amazonServer.domain.product.model.enums.Sort;
 import org.sopt.amazonServer.domain.product.repository.ProductRepository;
 import org.sopt.amazonServer.global.exception.BusinessException;
 import org.sopt.amazonServer.global.exception.ErrorType;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class ProductService {
 
     private final ProductRepository productRepository;
