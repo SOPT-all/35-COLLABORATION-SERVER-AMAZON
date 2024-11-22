@@ -1,5 +1,8 @@
 package org.sopt.amazonServer.domain.product.service;
 
+import static org.sopt.amazonServer.domain.product.model.enums.Sort.COMPARATOR_MAP;
+
+import java.util.Comparator;
 import java.util.List;
 import org.sopt.amazonServer.domain.cart.model.entity.CartEntity;
 import org.sopt.amazonServer.domain.cart.repostiory.CartRepository;
@@ -42,7 +45,7 @@ public class ProductService {
             productList = productRepository.findByNameContainsIgnoreCase(keyword);
         }
         // 상품 정렬
-        Sort.sortProducts(productList, sort);
+        sortProducts(productList, sort);
         List<CartEntity> cartList = cartRepository.findAllByMemberId(memberId);
 
         return productList.stream()
@@ -50,6 +53,13 @@ public class ProductService {
                         cartList.stream().anyMatch(cart -> cart.getProductId().equals(product.getId()))
                 ))
                 .toList();
+    }
+
+    public void sortProducts(List<ProductEntity> productList, Sort sort) {
+        Comparator<ProductEntity> comparator = COMPARATOR_MAP.get(
+                sort
+        );
+        productList.sort(comparator);
     }
 
 }
