@@ -7,6 +7,7 @@ import org.sopt.amazonServer.domain.member.repository.MemberRepository;
 import org.sopt.amazonServer.domain.product.model.dto.GetProductResponse;
 import org.sopt.amazonServer.domain.product.model.entity.ProductEntity;
 import org.sopt.amazonServer.domain.product.model.enums.Sort;
+import org.sopt.amazonServer.domain.product.model.mapper.ProductMapper;
 import org.sopt.amazonServer.domain.product.repository.ProductRepository;
 import org.sopt.amazonServer.global.exception.BusinessException;
 import org.sopt.amazonServer.global.exception.ErrorType;
@@ -19,12 +20,14 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final MemberRepository memberRepository;
+    private final ProductMapper productMapper;
 
     public ProductService(ProductRepository productRepository, CartRepository cartRepository,
-                          MemberRepository memberRepository) {
+                          MemberRepository memberRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.memberRepository = memberRepository;
+        this.productMapper = productMapper;
     }
 
     @Transactional(readOnly = true)
@@ -43,19 +46,7 @@ public class ProductService {
         List<CartEntity> cartList = cartRepository.findAllByMemberId(memberId);
 
         return productList.stream()
-                .map(product -> new GetProductResponse(
-                        product.getId(),
-                        product.getImage(),
-                        product.getBrand(),
-                        product.getName(),
-                        product.getIsBestSeller(),
-                        product.getRating(),
-                        product.getReviewCount(),
-                        product.getPrice(),
-                        product.getDiscountRate(),
-                        product.getIsFreeDelivery(),
-                        product.getDeliveryDate().toString(), // TODO: DateFormatter 분리
-                        product.getFreeDeliveryStandard(),
+                .map(product -> productMapper.toGetProductResponse(product,
                         cartList.stream().anyMatch(cart -> cart.getProductId().equals(product.getId()))
                 ))
                 .toList();
