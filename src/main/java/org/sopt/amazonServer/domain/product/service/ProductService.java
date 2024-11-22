@@ -1,9 +1,6 @@
 package org.sopt.amazonServer.domain.product.service;
 
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.sopt.amazonServer.domain.cart.model.entity.CartEntity;
 import org.sopt.amazonServer.domain.cart.repostiory.CartRepository;
 import org.sopt.amazonServer.domain.member.repository.MemberRepository;
@@ -19,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProductService {
 
-    private final static Map<Sort, Comparator<ProductEntity>> comparatorMap = new HashMap<>();
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final MemberRepository memberRepository;
@@ -43,7 +39,7 @@ public class ProductService {
             productList = productRepository.findByNameContainsIgnoreCase(keyword);
         }
         // 상품 정렬
-        sortProducts(productList, sort);
+        Sort.sortProducts(productList, sort);
         List<CartEntity> cartList = cartRepository.findAllByMemberId(memberId);
 
         return productList.stream()
@@ -65,18 +61,5 @@ public class ProductService {
                 .toList();
     }
 
-    private void sortProducts(List<ProductEntity> productList, Sort sort) {
-        comparatorMap.put(Sort.REVIEW_COUNT, Comparator.comparing(ProductEntity::getReviewCount).reversed());
-        comparatorMap.put(Sort.LOW_PRICE, Comparator.comparing(ProductEntity::getPrice));
-        comparatorMap.put(Sort.LATEST_PRODUCTS, Comparator.comparing(ProductEntity::getLaunchDate).reversed());
-        comparatorMap.put(Sort.POPULARITY,
-                Comparator.comparing(product -> (product.getSales() + product.getReviewCount()) * product.getRating()));
-        comparatorMap.put(Sort.SALES, Comparator.comparing(ProductEntity::getSales).reversed());
-
-        Comparator<ProductEntity> comparator = comparatorMap.get(
-                sort
-        );
-        productList.sort(comparator);
-    }
 }
 
