@@ -18,8 +18,4 @@ public class MemberEntity {
 
     protected MemberEntity() {
     }
-
-    public Long getId() {
-        return id;
-    }
 }

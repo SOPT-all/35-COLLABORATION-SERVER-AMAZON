@@ -15,11 +15,7 @@ public record ResponseDto<T>(
         String message,
         Object errors
 ) {
-
-    public static <T> ResponseDto<T> success(final T data) {
-        return new ResponseDto<>(null, data, null, null);
-    }
-
+    
     public static <T> ResponseDto<T> fail(final ErrorType errorType) {
         return new ResponseDto<>(errorType.getCode(), null, errorType.getMessage(), null);
     }
