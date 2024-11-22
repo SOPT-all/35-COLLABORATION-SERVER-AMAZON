@@ -28,7 +28,7 @@ public class CartEntity {
     protected CartEntity() {
     }
 
-    public final Long getProductId() {
+    public Long getProductId() {
         return productId;
     }
 }
