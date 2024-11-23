@@ -23,6 +23,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final MemberRepository memberRepository;
+
     private final ProductMapper productMapper;
 
     public ProductService(ProductRepository productRepository, CartRepository cartRepository,
@@ -34,33 +35,36 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public List<GetProductResponse> fetchProducts(final String keyword, final Sort sort, final Long memberId) {
+    public List<GetProductResponse> fetchProducts(
+            final String keyword,
+            final Sort sort,
+            final Long memberId
+    ) {
         if (!memberRepository.existsById(memberId)) {
             throw new BusinessException(ErrorType.NOT_FOUND_MEMBER_ERROR);
         }
+
         List<ProductEntity> productList;
-        if (keyword == null) { // 키워드가 없을 땐 전체 데이터 조회
+
+        // 검색어가 없을 땐 전체 데이터 조회
+        if (keyword == null) {
             productList = productRepository.findAll();
         } else {
             productList = productRepository.findByNameContainsIgnoreCase(keyword);
         }
-        // 상품 정렬
+
         sortProducts(productList, sort);
         List<CartEntity> cartList = cartRepository.findAllByMemberId(memberId);
 
         return productList.stream()
-                .map(product -> productMapper.toGetProductResponse(product,
-                        cartList.stream().anyMatch(cart -> cart.getProductId().equals(product.getId()))
+                .map(product -> productMapper.toGetProductResponse(
+                        product, cartList.stream().anyMatch(cart -> cart.getProductId().equals(product.getId()))
                 ))
                 .toList();
     }
 
     public void sortProducts(List<ProductEntity> productList, Sort sort) {
-        Comparator<ProductEntity> comparator = COMPARATOR_MAP.get(
-                sort
-        );
+        Comparator<ProductEntity> comparator = COMPARATOR_MAP.get(sort);
         productList.sort(comparator);
     }
-
 }
-

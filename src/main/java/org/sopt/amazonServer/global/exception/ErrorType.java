@@ -3,6 +3,7 @@ package org.sopt.amazonServer.global.exception;
 import org.springframework.http.HttpStatus;
 
 public enum ErrorType {
+
     /* Common Error */
     INVALID_PATH_ERROR(HttpStatus.BAD_REQUEST, "40001", "요청 경로의 변수 값이 허용된 형식과 다릅니다."),
     INVALID_FIELD_ERROR(HttpStatus.BAD_REQUEST, "40002", "요청 본문의 필드 값이 허용된 형식과 다릅니다."),
@@ -23,7 +24,7 @@ public enum ErrorType {
     private final String code;
     private final String message;
 
-    private ErrorType(HttpStatus httpStatus, String code, String message) {
+    ErrorType(HttpStatus httpStatus, String code, String message) {
         this.httpStatus = httpStatus;
         this.code = code;
         this.message = message;

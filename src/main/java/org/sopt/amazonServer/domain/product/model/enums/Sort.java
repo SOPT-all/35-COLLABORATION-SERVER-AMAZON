@@ -8,6 +8,7 @@ import org.sopt.amazonServer.global.exception.BusinessException;
 import org.sopt.amazonServer.global.exception.ErrorType;
 
 public enum Sort {
+
     POPULARITY("POPULARITY"),
     REVIEW_COUNT("REVIEWCOUNT"),
     SALES("SALES"),
@@ -24,8 +25,9 @@ public enum Sort {
         COMPARATOR_MAP.put(Sort.REVIEW_COUNT, Comparator.comparing(ProductEntity::getReviewCount).reversed());
         COMPARATOR_MAP.put(Sort.LOW_PRICE, Comparator.comparing(ProductEntity::getPrice));
         COMPARATOR_MAP.put(Sort.LATEST_PRODUCTS, Comparator.comparing(ProductEntity::getLaunchDate).reversed());
-        COMPARATOR_MAP.put(Sort.POPULARITY,
-                Comparator.comparing(product -> (product.getSales() + product.getReviewCount()) * product.getRating()));
+        COMPARATOR_MAP.put(Sort.POPULARITY, Comparator.comparing(
+                product -> (product.getSales() + product.getReviewCount()) * product.getRating()
+        ));
         COMPARATOR_MAP.put(Sort.SALES, Comparator.comparing(ProductEntity::getSales).reversed());
     }
 
@@ -37,9 +39,11 @@ public enum Sort {
 
     public static Sort fromValue(String value) {
         Sort sort = SORT_MAP.get(value);
+
         if (sort == null) {
             throw new BusinessException(ErrorType.INVALID_PRODUCTS_SORT_BY_ERROR);
         }
+        
         return sort;
     }
 
