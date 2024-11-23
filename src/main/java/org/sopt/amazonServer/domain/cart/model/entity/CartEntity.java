@@ -28,6 +28,11 @@ public class CartEntity {
     protected CartEntity() {
     }
 
+    public CartEntity(final Long memberId, final Long productId) {
+        this.memberId = memberId;
+        this.productId = productId;
+    }
+
     public Long getProductId() {
         return productId;
     }

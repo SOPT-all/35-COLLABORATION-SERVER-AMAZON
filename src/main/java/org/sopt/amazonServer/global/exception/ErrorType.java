@@ -19,7 +19,8 @@ public enum ErrorType {
     PRODUCT_IN_CART_ERROR(HttpStatus.BAD_REQUEST, "40901", "장바구니에 이미 존재하는 상품입니다."),
 
     /* Member Error */
-    NOT_FOUND_MEMBER_ERROR(HttpStatus.BAD_REQUEST, "40401", "존재하지 않는 회원입니다.");
+    NOT_FOUND_MEMBER_ERROR(HttpStatus.NOT_FOUND, "40401", "존재하지 않는 회원입니다."),
+    NOT_FOUND_PRODUCT_ERROR(HttpStatus.NOT_FOUND, "40402", "존재하지 않는 상품입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
