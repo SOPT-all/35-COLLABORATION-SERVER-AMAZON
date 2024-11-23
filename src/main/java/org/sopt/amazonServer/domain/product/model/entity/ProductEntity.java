@@ -59,89 +59,59 @@ public class ProductEntity {
     protected ProductEntity() {
     }
 
-    public ProductEntity(
-            boolean isBestSeller,
-            String image,
-            String brand,
-            String name,
-            float rating,
-            int reviewCount,
-            int price,
-            Integer discountRate,
-            boolean isFreeDelivery,
-            LocalDateTime deliveryDate,
-            Integer freeDeliveryStandard,
-            int sales,
-            LocalDateTime launchDate
-    ) {
-        this.isBestSeller = isBestSeller;
-        this.image = image;
-        this.brand = brand;
-        this.name = name;
-        this.rating = rating;
-        this.reviewCount = reviewCount;
-        this.price = price;
-        this.discountRate = discountRate;
-        this.isFreeDelivery = isFreeDelivery;
-        this.deliveryDate = deliveryDate;
-        this.freeDeliveryStandard = freeDeliveryStandard;
-        this.sales = sales;
-        this.launchDate = launchDate;
-    }
-
-    public final Long getId() {
+    public Long getId() {
         return id;
     }
 
-    public final boolean getIsBestSeller() {
+    public boolean getIsBestSeller() {
         return isBestSeller;
     }
 
-    public final String getImage() {
+    public String getImage() {
         return image;
     }
 
-    public final String getBrand() {
+    public String getBrand() {
         return brand;
     }
 
-    public final String getName() {
+    public String getName() {
         return name;
     }
 
-    public final float getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public final int getReviewCount() {
+    public int getReviewCount() {
         return reviewCount;
     }
 
-    public final int getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public final Integer getDiscountRate() {
+    public Integer getDiscountRate() {
         return discountRate;
     }
 
-    public final boolean getIsFreeDelivery() {
+    public boolean getIsFreeDelivery() {
         return isFreeDelivery;
     }
 
-    public final LocalDateTime getDeliveryDate() {
+    public LocalDateTime getDeliveryDate() {
         return deliveryDate;
     }
 
-    public final Integer getFreeDeliveryStandard() {
+    public Integer getFreeDeliveryStandard() {
         return freeDeliveryStandard;
     }
 
-    public final int getSales() {
+    public int getSales() {
         return sales;
     }
 
-    public final LocalDateTime getLaunchDate() {
+    public LocalDateTime getLaunchDate() {
         return launchDate;
     }
 }
