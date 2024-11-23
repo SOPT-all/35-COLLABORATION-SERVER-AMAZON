@@ -1,7 +1,6 @@
 package org.sopt.amazonServer.domain.cart.service;
 
 import jakarta.transaction.Transactional;
-import java.util.List;
 import org.sopt.amazonServer.domain.cart.model.dto.CartResponse;
 import org.sopt.amazonServer.domain.cart.model.entity.CartEntity;
 import org.sopt.amazonServer.domain.cart.repostiory.CartRepository;
@@ -30,9 +29,8 @@ public class CartService {
             throw new BusinessException(ErrorType.PRODUCT_NOT_IN_CART_ERROR);
         }
         cartRepository.deleteByMemberIdAndProductId(memberId, productId);
-        List<CartEntity> cartList = cartRepository.findAllByMemberId(memberId);
 
-        return new CartResponse(cartList.size());
+        return new CartResponse(cartRepository.findAllByMemberId(memberId).size());
     }
 
     @Transactional
@@ -45,8 +43,7 @@ public class CartService {
             throw new BusinessException(ErrorType.PRODUCT_IN_CART_ERROR);
         }
         cartRepository.save(new CartEntity(memberId, productId));
-        List<CartEntity> cartList = cartRepository.findAllByMemberId(memberId);
 
-        return new CartResponse(cartList.size());
+        return new CartResponse(cartRepository.findAllByMemberId(memberId).size());
     }
 }
