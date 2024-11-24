@@ -1,7 +1,7 @@
 package org.sopt.amazonServer.domain.cart.controller;
 
 import jakarta.validation.constraints.Positive;
-import org.sopt.amazonServer.domain.cart.model.dto.CartResponse;
+import org.sopt.amazonServer.domain.cart.model.dto.CartCountResponse;
 import org.sopt.amazonServer.domain.cart.service.CartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,18 +24,18 @@ public class CartController {
     }
 
     @DeleteMapping("/{productId}")
-    ResponseEntity<CartResponse> deleteProductInCart(
+    ResponseEntity<CartCountResponse> deleteProductInCart(
             @Positive(message = "productId는 양수여야 합니다.")
-            @PathVariable(name = "productId") final Long productId, // TODO: productId 없을 때 500 에러 막기
+            @PathVariable(name = "productId") final Long productId,
             @RequestHeader("memberId") final Long memberId
     ) {
         return ResponseEntity.ok(cartService.removeProductInCart(productId, memberId));
     }
 
     @PostMapping("/{productId}")
-    ResponseEntity<CartResponse> postProductInCart(
+    ResponseEntity<CartCountResponse> postProductInCart(
             @Positive(message = "productId는 양수여야 합니다.")
-            @PathVariable(name = "productId") final Long productId, // TODO: productId 없을 때 500 에러 막기
+            @PathVariable(name = "productId") final Long productId,
             @RequestHeader("memberId") final Long memberId
     ) {
         return ResponseEntity.ok(cartService.createProductInCart(productId, memberId));

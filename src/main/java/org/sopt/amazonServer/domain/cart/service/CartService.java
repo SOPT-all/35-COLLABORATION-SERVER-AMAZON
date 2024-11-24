@@ -1,7 +1,7 @@
 package org.sopt.amazonServer.domain.cart.service;
 
 import jakarta.transaction.Transactional;
-import org.sopt.amazonServer.domain.cart.model.dto.CartResponse;
+import org.sopt.amazonServer.domain.cart.model.dto.CartCountResponse;
 import org.sopt.amazonServer.domain.cart.model.entity.CartEntity;
 import org.sopt.amazonServer.domain.cart.repostiory.CartRepository;
 import org.sopt.amazonServer.domain.product.repository.ProductRepository;
@@ -21,7 +21,7 @@ public class CartService {
     }
 
     @Transactional
-    public CartResponse removeProductInCart(Long productId, Long memberId) {
+    public CartCountResponse removeProductInCart(Long productId, Long memberId) {
         if (!productRepository.existsById(productId)) {
             throw new BusinessException(ErrorType.NOT_FOUND_PRODUCT_ERROR);
         }
@@ -30,12 +30,11 @@ public class CartService {
         }
         cartRepository.deleteByMemberIdAndProductId(memberId, productId);
 
-        return new CartResponse(cartRepository.findAllByMemberId(memberId).size());
+        return new CartCountResponse(cartRepository.findAllByMemberId(memberId).size());
     }
 
     @Transactional
-    public CartResponse createProductInCart(Long productId, Long memberId) {
-        // TODO: 중복 제거
+    public CartCountResponse createProductInCart(Long productId, Long memberId) {
         if (!productRepository.existsById(productId)) {
             throw new BusinessException(ErrorType.NOT_FOUND_PRODUCT_ERROR);
         }
@@ -44,6 +43,6 @@ public class CartService {
         }
         cartRepository.save(new CartEntity(memberId, productId));
 
-        return new CartResponse(cartRepository.findAllByMemberId(memberId).size());
+        return new CartCountResponse(cartRepository.findAllByMemberId(memberId).size());
     }
 }

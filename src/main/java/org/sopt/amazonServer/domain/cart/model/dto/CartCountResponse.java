@@ -1,6 +1,6 @@
 package org.sopt.amazonServer.domain.cart.model.dto;
 
-public record CartResponse(
+public record CartCountResponse(
         int cartCount
 ) {
 
