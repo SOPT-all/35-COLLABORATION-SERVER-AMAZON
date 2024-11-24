@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(
-        name = "option",
+        name = "product_option",
         indexes = {
                 @Index(name = "idx_option_category_id", columnList = "category_id")
         }
