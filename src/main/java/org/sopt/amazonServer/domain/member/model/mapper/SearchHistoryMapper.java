@@ -9,7 +9,6 @@ import org.sopt.amazonServer.domain.member.model.entity.SearchHistoryEntity;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface SearchHistoryMapper {
 
-    // convert SearchHistoryEntity to SearchHistoryResponse
     @Mapping(target = "searchDate", source = "updatedAt", dateFormat = "MM.dd")
     SearchHistoryResponse toSearchHistoryResponse(SearchHistoryEntity searchHistoryEntity);
 }

@@ -9,9 +9,12 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "cart", uniqueConstraints = {
-        @UniqueConstraint(name = "unique_cart_member_id_product_id", columnNames = {"member_id", "product_id"})
-})
+@Table(
+        name = "cart",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "unique_cart_member_id_product_id", columnNames = {"member_id", "product_id"})
+        }
+)
 public class CartEntity {
 
     @Id

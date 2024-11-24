@@ -1,6 +1,7 @@
 package org.sopt.amazonServer.domain.product.controller;
 
 import java.util.List;
+import org.sopt.amazonServer.domain.product.model.dto.CategoryResponse;
 import org.sopt.amazonServer.domain.product.model.dto.GetProductResponse;
 import org.sopt.amazonServer.domain.product.model.enums.Sort;
 import org.sopt.amazonServer.domain.product.service.ProductService;
@@ -27,8 +28,13 @@ public class ProductController {
             @RequestParam(value = "sort", defaultValue = "POPULARITY") final String sort,
             @RequestHeader("memberId") final Long memberId
     ) {
-        Sort sortBy = Sort.fromValue(sort.toUpperCase()); // 잘못된 정렬 값인지 확인
+        Sort sortBy = Sort.fromValue(sort.toUpperCase()); // 올바른 정렬 값인지 확인
 
         return ResponseEntity.ok(productService.fetchProducts(keyword, sortBy, memberId));
+    }
+
+    @GetMapping("/filters")
+    ResponseEntity<List<CategoryResponse>> getCategoryList() {
+        return ResponseEntity.ok(productService.fetchCategories());
     }
 }
