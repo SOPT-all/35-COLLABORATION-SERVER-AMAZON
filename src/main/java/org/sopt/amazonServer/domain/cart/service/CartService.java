@@ -37,7 +37,7 @@ public class CartService {
         }
         cartRepository.deleteByMemberIdAndProductId(memberId, productId);
 
-        return new CartCountResponse(cartRepository.findAllByMemberId(memberId).size());
+        return CartCountResponse.fromCartCount(cartRepository.findAllByMemberId(memberId).size());
     }
 
     @Transactional
@@ -51,8 +51,8 @@ public class CartService {
         if (cartRepository.existsByMemberIdAndProductId(memberId, productId)) {
             throw new BusinessException(ErrorType.PRODUCT_IN_CART_ERROR);
         }
-        cartRepository.save(new CartEntity(memberId, productId));
+        cartRepository.save(CartEntity.of(memberId, productId));
 
-        return new CartCountResponse(cartRepository.findAllByMemberId(memberId).size());
+        return CartCountResponse.fromCartCount(cartRepository.findAllByMemberId(memberId).size());
     }
 }
