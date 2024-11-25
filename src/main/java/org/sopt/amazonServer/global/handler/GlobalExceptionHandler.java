@@ -15,6 +15,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -27,6 +28,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(ErrorType.INVALID_PATH_ERROR.getHttpStatus())
                 .body(ResponseDto.fail(ErrorType.INVALID_PATH_ERROR, e.getConstraintViolations()));
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ResponseDto<?>> handleNoResourceFoundException(NoResourceFoundException e) {
+        return ResponseEntity
+                .status(ErrorType.NOT_FOUND_ERROR.getHttpStatus())
+                .body(ResponseDto.fail(ErrorType.NOT_FOUND_ERROR, e.getMessage()));
     }
 
     // @Valid 유효성 검사 시 예외 처리

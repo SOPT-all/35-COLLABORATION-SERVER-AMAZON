@@ -31,6 +31,21 @@ public class CartEntity {
     protected CartEntity() {
     }
 
+    private CartEntity(final Long memberId, final Long productId) {
+        this.memberId = memberId;
+        this.productId = productId;
+    }
+
+    public static CartEntity of(final Long memberId, final Long productId) {
+        if (memberId == null || memberId <= 0) {
+            throw new IllegalArgumentException("Member ID는 null이거나 0 이하일 수 없습니다.");
+        }
+        if (productId == null || productId <= 0) {
+            throw new IllegalArgumentException("Product ID는 null이거나 0 이하일 수 없습니다.");
+        }
+        return new CartEntity(memberId, productId);
+    }
+
     public Long getProductId() {
         return productId;
     }
