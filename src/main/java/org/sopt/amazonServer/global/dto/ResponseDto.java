@@ -15,7 +15,7 @@ public record ResponseDto<T>(
         String message,
         Object errors
 ) {
-    
+
     public static <T> ResponseDto<T> fail(final ErrorType errorType) {
         return new ResponseDto<>(errorType.getCode(), null, errorType.getMessage(), null);
     }
