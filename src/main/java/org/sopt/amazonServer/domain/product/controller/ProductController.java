@@ -23,7 +23,7 @@ public class ProductController {
     }
 
     @GetMapping
-    ResponseEntity<List<GetProductResponse>> getDiaryList(
+    ResponseEntity<List<GetProductResponse>> getProductList(
             @RequestParam(value = "keyword", required = false) final String keyword,
             @RequestParam(value = "sort", defaultValue = "POPULARITY") final String sort,
             @RequestHeader("memberId") final Long memberId
