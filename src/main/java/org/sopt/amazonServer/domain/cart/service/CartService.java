@@ -1,6 +1,5 @@
 package org.sopt.amazonServer.domain.cart.service;
 
-import jakarta.transaction.Transactional;
 import org.sopt.amazonServer.domain.cart.model.dto.CartCountResponse;
 import org.sopt.amazonServer.domain.cart.model.entity.CartEntity;
 import org.sopt.amazonServer.domain.cart.repostiory.CartRepository;
@@ -9,6 +8,7 @@ import org.sopt.amazonServer.domain.product.repository.ProductRepository;
 import org.sopt.amazonServer.global.exception.BusinessException;
 import org.sopt.amazonServer.global.exception.ErrorType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CartService {
@@ -52,6 +52,15 @@ public class CartService {
             throw new BusinessException(ErrorType.PRODUCT_IN_CART_ERROR);
         }
         cartRepository.save(CartEntity.of(memberId, productId));
+
+        return CartCountResponse.fromCartCount(cartRepository.findAllByMemberId(memberId).size());
+    }
+
+    @Transactional(readOnly = true)
+    public CartCountResponse fetchCartCount(Long memberId) {
+        if (!memberRepository.existsById(memberId)) {
+            throw new BusinessException(ErrorType.NOT_FOUND_MEMBER_ERROR);
+        }
 
         return CartCountResponse.fromCartCount(cartRepository.findAllByMemberId(memberId).size());
     }
