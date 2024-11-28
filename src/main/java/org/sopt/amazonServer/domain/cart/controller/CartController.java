@@ -6,6 +6,7 @@ import org.sopt.amazonServer.domain.cart.service.CartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -41,4 +42,10 @@ public class CartController {
         return ResponseEntity.ok(cartService.createProductInCart(productId, memberId));
     }
 
+    @GetMapping
+    ResponseEntity<CartCountResponse> getCartCount(
+            @RequestHeader(name = "memberId") final Long memberId
+    ) {
+        return ResponseEntity.ok(cartService.fetchCartCount(memberId));
+    }
 }
